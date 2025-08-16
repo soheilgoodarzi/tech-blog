@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { getAllPosts } from '@/lib/api'; // حالا این ایمپورت به درستی کار می‌کند
+import Link from "next/link"
+import { getAllPosts } from "@/lib/api"
 
 export default function BlogPage() {
-  const posts = getAllPosts(); // تمام پست‌ها را در سرور می‌خوانیم
+  const posts = getAllPosts()
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
@@ -19,5 +19,5 @@ export default function BlogPage() {
         ))}
       </div>
     </main>
-  );
+  )
 }

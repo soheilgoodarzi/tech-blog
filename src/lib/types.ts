@@ -6,4 +6,5 @@ export interface Post {
   coverImage: string
   tags: string[]
   content: string
+  author: string
 }

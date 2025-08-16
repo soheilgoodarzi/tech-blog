@@ -2,30 +2,27 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { Post } from "./types"
-
-// مسیر پوشه پست‌ها را مشخص می‌کنیم
+import html from "remark-html"
+import { remark } from "remark"
+//Specifying the path for blog posts
 const postsDirectory = path.join(process.cwd(), "posts")
 
 export function getAllPosts(): Post[] {
-  // ۱. نام تمام فایل‌های داخل پوشه posts را می‌خوانیم
+  // Read the names of all the files in the posts folder
   const fileNames = fs.readdirSync(postsDirectory)
 
   const allPostsData = fileNames.map((fileName) => {
-    // ۲. پسوند .md را از نام فایل حذف می‌کنیم تا slug را به دست آوریم
+    //Remove the .md extension from the file name to get the slug
     const slug = fileName.replace(/\.md$/, "")
-
-    // ۳. محتوای هر فایل Markdown را می‌خوانیم
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, "utf8")
-
-    // ۴. با gray-matter، اطلاعات متا (frontmatter) را از محتوا جدا می‌کنیم
     const matterResult = matter(fileContents)
 
-    // ۵. داده‌های استخراج شده را با slug ترکیب می‌کنیم
     return {
       slug,
       ...(matterResult.data as {
         date: string
+        author: string
         title: string
         excerpt: string
         coverImage: string
@@ -34,7 +31,6 @@ export function getAllPosts(): Post[] {
     }
   })
 
-  // ۶. پست‌ها را بر اساس تاریخ مرتب می‌کنیم تا جدیدترین‌ها اول نمایش داده شوند
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
       return 1
@@ -52,4 +48,33 @@ export function getAllTags(): string[] {
   })
 
   return Array.from(allTags).sort()
+}
+export async function getPostBySlug(slug: string) {
+  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  try {
+    const fileContents = fs.readFileSync(fullPath, "utf8")
+
+    const matterResult = matter(fileContents)
+
+    const processedContent = await remark()
+      .use(html)
+      .process(matterResult.content)
+    const contentHtml = processedContent.toString()
+
+    return {
+      slug,
+      contentHtml,
+      ...(matterResult.data as {
+        date: string
+        title: string
+        author: string
+        excerpt: string
+        coverImage: string
+        tags: string[]
+      }),
+    }
+  } catch (error) {
+    console.error(`Error reading post with slug "${slug}":`, error)
+    return null
+  }
 }
