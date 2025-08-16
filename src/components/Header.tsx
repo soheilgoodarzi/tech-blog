@@ -1,7 +1,10 @@
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { getAllPosts } from "@/lib/api";
+import NavigationLinks from "./NavigationLinks";
+import { NAV_LINKS } from "@/constants/navigation";
 
+// هدر یک کامپوننت سرور باقی می‌ماند
 export default async function Header() {
   const allPosts = getAllPosts();
 
@@ -10,6 +13,8 @@ export default async function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8 gap-5">
+
+            {/* ۱. لوگوی دو رنگ و سفارشی شما به طور کامل بازگردانده شد */}
             <Link href="/" className="text-3xl">
               <span className="text-amber-700 hover:text-gray-300 transition-colors duration-300">
                 Tech
@@ -18,22 +23,11 @@ export default async function Header() {
                 Blog
               </span>
             </Link>
-            <nav className="hidden md:flex items-center space-x-10 mt-[5px]">
-              <Link
-                href="/"
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-              >
-                Articles
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-              >
-                About
-              </Link>
-            </nav>
+            
+            {/* کامپوننت کلاینت برای لینک‌های تعاملی */}
+            <NavigationLinks links={NAV_LINKS} />
           </div>
-          <div className="flex items-center w-1/3 max-w-xs">
+          <div className="w-1/3 max-w-xs">
             <SearchBar allPosts={allPosts} />
           </div>
         </div>
