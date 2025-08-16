@@ -1,6 +1,8 @@
 import Link from "next/link"
+import Image from "next/image"
 import { getAllPosts, getAllTags } from "@/lib/api"
 import CategoryFilter from "@/components/CategoryFilter"
+import { ArrowRight } from "lucide-react"
 
 export default function HomePage({
   searchParams,
@@ -11,7 +13,6 @@ export default function HomePage({
   const allTags = getAllTags()
   const currentTag = searchParams.tag
 
-  //filter by tags of posts
   const filteredPosts = currentTag
     ? allPosts.filter((post) => post.tags.includes(currentTag))
     : allPosts
@@ -19,24 +20,52 @@ export default function HomePage({
   return (
     <>
       <CategoryFilter allTags={allTags} />
-      <div className="max-w-2xl mx-auto py-18 px-4 sm:px-6 lg:px-8">
-        <div className="space-y-10">
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="space-y-16">
           {filteredPosts.map((post) => (
-            <article key={post.slug}>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {post.date}
-              </p>
-              <h2 className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors mt-1">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p className="text-lg text-gray-600 mt-3">{post.excerpt}</p>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="text-blue-500 hover:text-blue-600 font-semibold mt-4 inline-block"
-              >
-                Read more →
-              </Link>
-            </article>
+            <div
+              key={post.slug}
+              className="grid md:grid-cols-2 md:gap-10 items-center md:h-70"
+            >
+              <div className="p-6 flex flex-col h-full">
+                <div className="">
+                  <p className="text-gray-400 text-sm mb-2">{post.date}</p>
+                  <h2 className="text-2xl font-bold text-gray-100 hover:text-blue-400 transition-colors mt-1">
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h2>
+                  ={" "}
+                  <p className="text-lg text-gray-300 mt-4 leading-relaxed line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                </div>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="text-blue-400 hover:text-blue-300 lg:mt-4 font-semibold inline-block self-start"
+                >
+                  Read more →
+                </Link>
+              </div>
+
+              <div className="relative md:h-60 rounded-xl overflow-hidden shadow-2xl">
+                <Image
+                  src={post.coverImage}
+                  alt={`Cover image for ${post.title}`}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-xl font-bold">{post.title}</h3>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-lg text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all transform hover:scale-105"
+                  >
+                    Read Post <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

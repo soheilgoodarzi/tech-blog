@@ -32,7 +32,7 @@ export default async function PostPage({
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gray-500/80" />
+          <div className="absolute inset-0 bg-gray-600/80" />
           <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white p-4">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 [text-shadow:_0_2px_4px_rgb(0_0_0_/_50%)]">
               {post.title}

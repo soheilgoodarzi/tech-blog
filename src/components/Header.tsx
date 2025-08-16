@@ -4,15 +4,16 @@ import { Search } from "lucide-react"
 export default function Header() {
   return (
     <header className="bg-gray-800/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-700">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8 gap-5">
-            <Link
-              href="/"
-              className="text-3xl font-stretch-100%"
-            >
-              <span className="text-amber-700 hover:text-gray-300 transition-color duration-300">Tech</span>
-              <span className="text-gray-300 hover:text-amber-700 transition-color duration-300">Blog</span>
+            <Link href="/" className="text-3xl font-stretch-100%">
+              <span className="text-amber-700 hover:text-gray-300 transition-color duration-300">
+                Tech
+              </span>
+              <span className="text-gray-300 hover:text-amber-700 transition-color duration-300">
+                Blog
+              </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-10 mt-[5px]">
               <Link

@@ -13,8 +13,8 @@ export default function CategoryFilter({ allTags }: CategoryFilterProps) {
 
   return (
     <div className="bg-gray-800 py-4 border-b border-t border-gray-700">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap gap-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap gap-2 justify-center">
           <Link
             href="/"
             className={`px-3 py-1 text-sm font-medium rounded-full transition-colors ${
