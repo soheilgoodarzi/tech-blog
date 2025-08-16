@@ -34,7 +34,6 @@ export default function HomePage({
                   <h2 className="text-2xl font-bold text-gray-100 hover:text-blue-400 transition-colors mt-1">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h2>
-                  ={" "}
                   <p className="text-lg text-gray-300 mt-4 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>

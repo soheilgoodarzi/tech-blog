@@ -19,7 +19,7 @@ export default function CategoryFilter({ allTags }: CategoryFilterProps) {
             href="/"
             className={`px-3 py-1 text-sm font-medium rounded-full transition-colors ${
               !currentTag
-                ? "bg-blue-500 text-white"
+                ? "bg-amber-700 text-white"
                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
           >
@@ -31,7 +31,7 @@ export default function CategoryFilter({ allTags }: CategoryFilterProps) {
               href={`/?tag=${tag}`}
               className={`px-3 py-1 text-sm font-medium rounded-full transition-colors ${
                 currentTag === tag
-                  ? "bg-blue-500 text-white"
+                  ? "bg-amber-700 text-white"
                   : "bg-gray-700 text-gray-300 hover:bg-gray-600"
               }`}
             >
