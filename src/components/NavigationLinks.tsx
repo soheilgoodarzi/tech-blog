@@ -30,7 +30,6 @@ export default function NavigationLinks({ links }: NavigationLinksProps) {
   return (
     <nav className="hidden md:flex items-center space-x-6">
       {links.map((link) => {
-        // بررسی شرطی برای لینک Articles
         const isActive =
           link.href === "/"
             ? isArticlesActive(pathname)
