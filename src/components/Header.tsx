@@ -1,17 +1,20 @@
-import Link from "next/link"
-import { Search } from "lucide-react"
+import Link from "next/link";
+import SearchBar from "./SearchBar";
+import { getAllPosts } from "@/lib/api";
 
-export default function Header() {
+export default async function Header() {
+  const allPosts = getAllPosts();
+
   return (
     <header className="bg-gray-800/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8 gap-5">
-            <Link href="/" className="text-3xl font-stretch-100%">
-              <span className="text-amber-700 hover:text-gray-300 transition-color duration-300">
+            <Link href="/" className="text-3xl">
+              <span className="text-amber-700 hover:text-gray-300 transition-colors duration-300">
                 Tech
               </span>
-              <span className="text-gray-300 hover:text-amber-700 transition-color duration-300">
+              <span className="text-gray-300 hover:text-amber-700 transition-colors duration-300">
                 Blog
               </span>
             </Link>
@@ -30,18 +33,11 @@ export default function Header() {
               </Link>
             </nav>
           </div>
-          <div className="flex items-center">
-            <div className="relative">
-              <input
-                type="search"
-                placeholder="Search articles..."
-                className="bg-gray-700/50 rounded-full px-4 py-1.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:bg-gray-700 focus:ring-2 focus:ring-amber-700"
-              />
-              <Search className="w-4 h-4 absolute text-amber-700 right-3 top-1/2 -translate-y-1/2 " />
-            </div>
+          <div className="flex items-center w-1/3 max-w-xs">
+            <SearchBar allPosts={allPosts} />
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
