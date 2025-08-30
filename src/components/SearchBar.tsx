@@ -1,10 +1,10 @@
 "use client"
+
 import { useState, useEffect, FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { Search } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
 import { Post } from "@/lib/types"
+import SearchResults from "./SearchResults" // ۱. کامپوننت جدید را ایمپورت می‌کنیم
 
 export default function SearchBar({ allPosts }: { allPosts: Post[] }) {
   const [query, setQuery] = useState("")
@@ -29,6 +29,11 @@ export default function SearchBar({ allPosts }: { allPosts: Post[] }) {
     setResults([])
   }
 
+  const handleResultClick = () => {
+    setQuery("")
+    setResults([])
+  }
+
   return (
     <div className="relative w-full">
       <form onSubmit={handleSearchSubmit}>
@@ -37,7 +42,7 @@ export default function SearchBar({ allPosts }: { allPosts: Post[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search articles..."
-          className="bg-gray-700/50 rounded-full w-full px-4 py-1.5 pr-10 text-sm text-white placeholder-gray-400 focus:outline-none focus:bg-gray-700 focus:ring-2 focus:ring-amber-700"
+          className="bg-gray-700/50 rounded-full w-full pl-4 pr-10 py-1.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:bg-gray-700 focus:ring-2 focus:ring-amber-700 xs:placeholder:text-xs"
         />
         <button
           type="submit"
@@ -48,28 +53,7 @@ export default function SearchBar({ allPosts }: { allPosts: Post[] }) {
       </form>
 
       {results.length > 0 && (
-        <div className="absolute top-full mt-2 w-full bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
-          <ul>
-            {results.slice(0, 5).map((post) => (
-              <li key={post.slug}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  onClick={() => setQuery("")}
-                  className="flex items-center gap-4 p-3 hover:bg-gray-700/50 transition-colors"
-                >
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 object-cover rounded-md"
-                  />
-                  <span className="text-sm text-gray-200">{post.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <SearchResults results={results} onResultClick={handleResultClick} />
       )}
     </div>
   )

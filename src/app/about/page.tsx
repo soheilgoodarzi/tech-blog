@@ -8,8 +8,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    // ۱. این div والد، مسئول وسط‌چین کردن کارت ماست
-    <div className="max-w-4xl mx-auto py-12 md:py-20 px-4">
+    <div className="md:max-w-4xl xs:max-w-md mx-auto lg:py-12 xs:py-5 md:py-20 px-4">
       
       <div className="bg-gray-900/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 md:p-12 border border-white/10">
 
@@ -19,14 +18,14 @@ export default function AboutPage() {
             alt="Soheil Goodarzi"
             width={150}
             height={150}
-            className="rounded-full shadow-lg mb-4 border-4 border-gray-700"
+            className="rounded-full shadow-lg lg:mb-4 xs:mb-1 border-4 border-gray-700 xs:max-w-[105px]"
             priority
           />
-          <h1 className="text-4xl font-bold text-white">Soheil Goodarzi</h1>
-          <p className="text-lg text-amber-500 mt-1">Front-end Developer</p>
+          <h1 className="lg:text-4xl xs:text-2xl font-bold text-white">Soheil Goodarzi</h1>
+          <p className="lg:text-lg xs:text-sm text-amber-500 mt-1">Front-end Developer</p>
         </div>
 
-        <div className="prose prose-invert lg:prose-xl max-w-none mt-12">
+        <div className="prose prose-invert xs:text-xs lg:prose-xl max-w-none xs:mt-5 lg:mt-12">
           <h2>About This Blog</h2>
           <p>
             Welcome to my personal tech blog! I created this space to document my journey learning modern web technologies like React, Next.js, and TypeScript. This project itself is a live demonstration of these skills, built from the ground up.

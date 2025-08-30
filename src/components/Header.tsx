@@ -12,7 +12,7 @@ export default async function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8 gap-5">
-            <Link href="/" className="text-3xl">
+            <Link href="/" className="lg:text-3xl xs:text-lg">
               <span className="text-amber-700 hover:text-gray-300 transition-colors duration-300">
                 Tech
               </span>
@@ -23,7 +23,7 @@ export default async function Header() {
 
             <NavigationLinks links={NAV_LINKS} />
           </div>
-          <div className="w-1/3 max-w-xs">
+          <div className="lg:w-1/3 max-w-xs xs:w-1/2">
             <SearchBar allPosts={allPosts} />
           </div>
         </div>
