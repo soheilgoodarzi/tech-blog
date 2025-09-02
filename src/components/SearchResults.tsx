@@ -1,22 +1,24 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Post } from '@/lib/types';
+import Link from "next/link"
+import Image from "next/image"
+import { Post } from "@/lib/types"
 
-// تعریف پراپ‌های ورودی کامپوننت
 type SearchResultsProps = {
-  results: Post[];
-  onResultClick: () => void; // تابعی برای بستن منو پس از کلیک
-};
+  results: Post[]
+  onResultClick: () => void
+}
 
-export default function SearchResults({ results, onResultClick }: SearchResultsProps) {
+export default function SearchResults({
+  results,
+  onResultClick,
+}: SearchResultsProps) {
   return (
     <div className="absolute top-full mt-2 w-full bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
       <ul>
-        {results.slice(0, 5).map(post => (
+        {results.slice(0, 5).map((post) => (
           <li key={post.slug}>
             <Link
               href={`/blog/${post.slug}`}
-              onClick={onResultClick} // با کلیک روی هر نتیجه، تابع والد فراخوانی می‌شود
+              onClick={onResultClick}
               className="flex items-center gap-4 p-3 hover:bg-gray-700/50 transition-colors"
             >
               <Image
@@ -32,5 +34,5 @@ export default function SearchResults({ results, onResultClick }: SearchResultsP
         ))}
       </ul>
     </div>
-  );
+  )
 }

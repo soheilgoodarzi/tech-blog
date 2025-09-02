@@ -4,7 +4,7 @@ import { useState, useEffect, FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { Search } from "lucide-react"
 import { Post } from "@/lib/types"
-import SearchResults from "./SearchResults" // ۱. کامپوننت جدید را ایمپورت می‌کنیم
+import SearchResults from "./SearchResults" 
 
 export default function SearchBar({ allPosts }: { allPosts: Post[] }) {
   const [query, setQuery] = useState("")

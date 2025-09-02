@@ -14,7 +14,7 @@ export default function CategoryFilter({ allTags }: CategoryFilterProps) {
   return (
     <div className="bg-gray-800 py-4 border-b border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex overflow-x-auto no-scrollbar justify-start xl:justify-center gap-1 md:gap-2 flex-nowrap">
+        <div className="flex overflow-x-auto no-scrollbar justify-start gap-1 md:gap-2 flex-nowrap">
           <Link
             href="/"
             className={`flex-shrink-0 whitespace-nowrap px-3 py-1 md:text-sm text-xs font-light rounded-full transition-colors ${
