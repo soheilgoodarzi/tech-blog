@@ -4,25 +4,39 @@ import { getAllPosts, getAllTags } from "@/lib/api"
 import CategoryFilter from "@/components/CategoryFilter"
 import { ArrowRight } from "lucide-react"
 
-export default function HomePage({
+export default function SearchPage({
   searchParams,
 }: {
-  searchParams: { tag: string }
+  searchParams?: { q?: string }
 }) {
+  const query = searchParams?.q || ""
   const allPosts = getAllPosts()
   const allTags = getAllTags()
-  const currentTag = searchParams.tag
 
-  const filteredPosts = currentTag
-    ? allPosts.filter((post) => post.tags.includes(currentTag))
-    : allPosts
-
+  const filteredPosts = query
+    ? allPosts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(query.toLowerCase()) ||
+          (post.excerpt &&
+            post.excerpt.toLowerCase().includes(query.toLowerCase()))
+      )
+    : []
   return (
     <>
       <CategoryFilter allTags={allTags} />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        {query ? (
+          <h1 className="md:text-2xl text-xs font-bold mb-4 text-gray-200">
+            Search Results for:{" "}
+            <span className="text-amber-600 text-xs md:text-2xl">"{query}"</span>
+          </h1>
+        ) : (
+          <h1 className="text-3xl font-bold mb-8 text-gray-200">
+            Please enter a search term.
+          </h1>
+        )}
+        <div className="space-y-12">
           {filteredPosts.map((post) => (
             <div
               key={post.slug}
@@ -31,10 +45,10 @@ export default function HomePage({
               <div className="p-4 lg:p-6 flex flex-col h-full">
                 <div className="flex-grow">
                   <p className="text-gray-400 text-xs mb-2">{post.date}</p>
-                  <h2 className="text-lg lg:text-3xl font-bold text-gray-100 hover:text-blue-400 transition-colors mt-1">
+                  <h2 className="text-lg lg:text-2xl font-bold text-gray-100 hover:text-blue-400 transition-colors mt-1">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h2>
-                  <p className="text-sm lg:text-lg text-gray-300 mt-4 leading-relaxed line-clamp-3">
+                  <p className="text-sm lg:text-lg text-gray-300 mt-2 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>
                 </div>
@@ -46,22 +60,20 @@ export default function HomePage({
                 </Link>
               </div>
 
-              <div className="relative md:h-60 h-44 lg:h-full rounded-xl overflow-hidden shadow-2xl order-first lg:order-last">
+              <div className="relative h-40 md:h-60 rounded-xl overflow-hidden shadow-2xl order-first md:order-last">
                 <Image
                   src={post.coverImage}
                   alt={`Cover image for ${post.title}`}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 text-white">
-                  <h3 className="text-xl lg:text-2xl font-bold">
-                    {post.title}
-                  </h3>
+                  <h3 className="text-lg md:text-xl font-bold">{post.title}</h3>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-lg text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all transform hover:scale-105"
+                    className="mt-2 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-lg text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all transform hover:scale-105"
                   >
                     Read Post <ArrowRight className="w-4 h-4" />
                   </Link>
