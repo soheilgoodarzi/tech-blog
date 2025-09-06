@@ -29,7 +29,7 @@ export default function SearchPage({
         {query ? (
           <h1 className="md:text-2xl text-xs font-bold mb-4 text-gray-200">
             Search Results for:{" "}
-            <span className="text-amber-600 text-xs md:text-2xl">"{query}"</span>
+            <span className="text-amber-600 text-xs md:text-2xl">{query}</span>
           </h1>
         ) : (
           <h1 className="text-3xl font-bold mb-8 text-gray-200">
