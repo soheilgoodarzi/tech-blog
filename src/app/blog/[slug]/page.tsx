@@ -9,28 +9,29 @@ export async function generateStaticParams() {
     slug: post.slug,
   }))
 }
+
 type MetadataProps = {
-  params: { slug: string };
-};
-export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  params: { slug: string }
+}
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug)
   if (!post) {
-    return { title: 'Post Not Found' };
+    return { title: "Post Not Found" }
   }
   return {
     title: `${post.title} | TechBlog by Soheil`,
     description: post.excerpt,
-    openGraph: {
-        images: [post.coverImage],
-    },
-  };
+  }
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+type PageProps = {
+  params: {
+    slug: string
+  }
+}
+export default async function PostPage({ params }: PageProps) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
