@@ -7,11 +7,11 @@ import { ArrowRight } from "lucide-react"
 export default function HomePage({
   searchParams,
 }: {
-  searchParams: { tag: string }
+  searchParams?: { tag: string }
 }) {
   const allPosts = getAllPosts()
   const allTags = getAllTags()
-  const currentTag = searchParams.tag
+  const currentTag = searchParams?.tag
 
   const filteredPosts = currentTag
     ? allPosts.filter((post) => post.tags.includes(currentTag))
@@ -23,7 +23,7 @@ export default function HomePage({
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div className="space-y-12 md:space-y-16">
-          {filteredPosts.map((post) => (
+          {filteredPosts.map((post, index) => (
             <div
               key={post.slug}
               className="grid grid-cols-1 md:grid-cols-2 md:gap-10 items-center"
@@ -54,6 +54,7 @@ export default function HomePage({
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 text-white">
