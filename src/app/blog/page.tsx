@@ -6,7 +6,7 @@ export default function BlogPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
-      <h1 className="text-4xl font-bold mb-8">وبلاگ من</h1>
+      <h1 className="text-2xl lg:text-4xl font-bold mb-8">وبلاگ من</h1>
       <div className="w-full max-w-3xl space-y-8">
         {posts.map((post) => (
           <article key={post.slug} className="border-b pb-4">
