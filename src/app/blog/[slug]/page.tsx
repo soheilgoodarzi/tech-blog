@@ -2,12 +2,28 @@ import { getAllPosts, getPostBySlug } from "@/lib/api"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-
+import { Metadata } from "next"
 export async function generateStaticParams() {
   const posts = getAllPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
+}
+type MetadataProps = {
+  params: { slug: string };
+};
+export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  if (!post) {
+    return { title: 'Post Not Found' };
+  }
+  return {
+    title: `${post.title} | TechBlog by Soheil`,
+    description: post.excerpt,
+    openGraph: {
+        images: [post.coverImage],
+    },
+  };
 }
 
 export default async function PostPage({
@@ -47,7 +63,9 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
         <div className="mt-4 pt-2 border-t border-gray-700  mx-auto">
-          <h3 className="text-base md:text-lg font-semibold text-gray-300 mb-4">Tags</h3>
+          <h3 className="text-base md:text-lg font-semibold text-gray-300 mb-4">
+            Tags
+          </h3>
           <div className="flex flex-wrap gap-3">
             {post.tags.map((tag) => (
               <Link
